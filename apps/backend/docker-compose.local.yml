@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  randomnconvert-database:
+    container_name: randomnconvert-database
+    image: postgres:14.2-alpine
+
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+    ports:
+      - '5433:5432'
+
+    environment:
+      - POSTGRES_DB=randomnconvert_database
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+volumes:
+  postgres-db:
