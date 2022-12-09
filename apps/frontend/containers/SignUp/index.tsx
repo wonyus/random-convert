@@ -16,6 +16,7 @@ import {
 import useNotifications from '../../hooks/useNotifications'
 import Link from 'next/link'
 import { IconGenderFemale, IconGenderMale } from '@tabler/icons'
+import SignoutComponent from '../../components/auth/signout'
 
 const data = [
 	{ label: 'Male', value: 'male', icon: <IconGenderMale /> },
@@ -72,11 +73,12 @@ const SignUpContainer: FC = () => {
 					filter={(value, item: any) => item.label.toLowerCase().includes(value.toLowerCase().trim())}
 				/>
 				<Group position="apart" mt="lg">
-					<Link href={'/signin'}>
+					<Link href={'/auth/signin'}>
 						<Text color="dimmed" size="sm" align="center" mt={5}>
 							Sign in?
 						</Text>{' '}
 					</Link>
+					<SignoutComponent/>
 				</Group>
 				<Button fullWidth mt="xl">
 					Sign up

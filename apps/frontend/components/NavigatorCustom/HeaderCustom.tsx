@@ -30,6 +30,7 @@ import {
 } from '@tabler/icons'
 import { useStyles } from './styles'
 import Link from 'next/link'
+import SignoutComponent from '../auth/signout'
 
 const mockdata = [
 	{
@@ -149,12 +150,13 @@ export function HeaderCustom({ burgerOpened, toggleBurger, closeBurger }: Burger
 					</Group>
 
 					<Group className={classes.headerhiddenMobile}>
-						<Link href={'/signin'}>
+						<Link href={'/auth/signin'}>
 							<Button variant="default">Log in</Button>
 						</Link>
-						<Link href={'/signup'}>
+						<Link href={'/auth/signup'}>
 							<Button>Sign up</Button>
 						</Link>
+						<SignoutComponent/>
 					</Group>
 
 					<Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.headerhiddenDesktop} />
