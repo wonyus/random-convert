@@ -1,22 +1,9 @@
 import { FC } from 'react'
 import { useRouter } from 'next/router'
 import { IconArrowLeft } from '@tabler/icons'
-import {
-	createStyles,
-	Paper,
-	Title,
-	Text,
-	TextInput,
-	Button,
-	Container,
-	Group,
-	Anchor,
-	Center,
-	Box,
-} from '@mantine/core'
+import { createStyles, Paper, Title, Text, TextInput, Button, Container, Group, Center, Box } from '@mantine/core'
 import useNotifications from '../../hooks/useNotifications'
 import Link from 'next/link'
-import SignoutComponent from '../../components/auth/signout'
 
 const useStyles = createStyles((theme) => ({
 	title: {
@@ -72,7 +59,6 @@ const ForgotPasswordContainer: FC = () => {
 						</Text>
 					</Link>
 					<Button className={classes.control}>Reset password</Button>
-					<SignoutComponent />
 				</Group>
 			</Paper>
 		</Container>

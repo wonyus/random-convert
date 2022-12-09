@@ -1,5 +1,4 @@
-import { MantineNumberSize } from '@mantine/core'
-import { showNotification, updateNotification } from '@mantine/notifications'
+import { showNotification } from '@mantine/notifications'
 import { useMemo } from 'react'
 
 interface NotificationProps {

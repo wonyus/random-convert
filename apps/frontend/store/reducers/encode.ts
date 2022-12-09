@@ -9,7 +9,7 @@ const initialState = { count: 0, data: 0 }
 const encoderReducer = (state = initialState, action: AnyAction<string, any>) => {
 	switch (action.type) {
 		case SET_JWT: {
-			return { ...state, count: action.payload }
+			return { ...state, count: state.count + 1 }
 		}
 		default: {
 			return state

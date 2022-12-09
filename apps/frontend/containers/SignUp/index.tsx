@@ -1,22 +1,9 @@
-import { FC, forwardRef, useState } from 'react'
+import { FC, forwardRef } from 'react'
 import { useRouter } from 'next/router'
-import {
-	TextInput,
-	PasswordInput,
-	Anchor,
-	Paper,
-	Title,
-	Text,
-	Container,
-	Group,
-	Button,
-	Select,
-	Box,
-} from '@mantine/core'
+import { TextInput, PasswordInput, Paper, Title, Text, Container, Group, Button, Select, Box } from '@mantine/core'
 import useNotifications from '../../hooks/useNotifications'
 import Link from 'next/link'
 import { IconGenderFemale, IconGenderMale } from '@tabler/icons'
-import SignoutComponent from '../../components/auth/signout'
 
 const data = [
 	{ label: 'Male', value: 'male', icon: <IconGenderMale /> },
@@ -78,7 +65,6 @@ const SignUpContainer: FC = () => {
 							Sign in?
 						</Text>{' '}
 					</Link>
-					<SignoutComponent/>
 				</Group>
 				<Button fullWidth mt="xl">
 					Sign up

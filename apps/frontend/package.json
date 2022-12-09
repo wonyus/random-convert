@@ -40,6 +40,8 @@
 		"@types/react": "18.0.21",
 		"@types/react-dom": "18.0.6",
 		"eslint-config-custom": "*",
+		"redux-batched-subscribe": "^0.1.6",
+		"redux-logger": "^3.0.6",
 		"tsconfig": "*",
 		"typescript": "^4.8.3"
 	}

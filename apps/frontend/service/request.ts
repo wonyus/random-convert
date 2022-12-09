@@ -1,9 +1,14 @@
 import axiosInstance from './axiosInstance'
-import { persistentStorage } from '../utils/useStorage/persistentStorage'
-import axios from 'axios'
+import defaultInstance from './axiosglobal'
 
 export const logIn = async (header: any, formdata: any) => {
-	const response = await axios.post('http://127.0.0.1:8000/api/v1/auth/login', formdata)
+	const response = await defaultInstance.post('/auth/login', formdata)
+	const { data }: any = response
+	return data
+}
+
+export const register = async (header: any, formdata: any) => {
+	const response = await defaultInstance.post('/auth/signup', formdata)
 	const { data }: any = response
 	return data
 }
@@ -14,3 +19,8 @@ export const getAllPost = async (header: any, formdata: any) => {
 	return data
 }
 
+export const getUser = async (header: any, formdata: any) => {
+	const response = await axiosInstance.get('/users', formdata)
+	const { data }: any = response
+	return data
+}

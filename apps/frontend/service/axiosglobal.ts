@@ -3,8 +3,8 @@ import { setupInterceptorsTo } from './Interceptors'
 
 const baseURL = process.env.ENDPOINT
 
-export const genAxiosRefreshToken = () => {
-	const refreshInstance = setupInterceptorsTo(
+export const AxiosGlobal = () => {
+	const globalInstance = setupInterceptorsTo(
 		axios.create({
 			baseURL,
 			headers: {
@@ -14,5 +14,7 @@ export const genAxiosRefreshToken = () => {
 			},
 		}),
 	)
-	return refreshInstance
+	return globalInstance
 }
+const defaultInstance = AxiosGlobal()
+export default defaultInstance

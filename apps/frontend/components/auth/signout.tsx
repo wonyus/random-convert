@@ -23,4 +23,16 @@ const SignoutComponent = () => {
 	)
 }
 
+export const onClickSignout = () => {
+	const { callNotification } = useNotifications()
+	try {
+		//call api sign out
+		signOut()
+		persistentStorage.removeItem('authTokens')
+		callNotification({ message: 'Logout successfully', type: 'success' })
+	} catch (err: any) {
+		callNotification({ message: err.message, type: 'error' })
+	}
+}
+
 export default SignoutComponent

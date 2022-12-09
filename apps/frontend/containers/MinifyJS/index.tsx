@@ -65,7 +65,7 @@ const MinifyJSContainer: FC = () => {
 					<Button onClick={(evt) => handleClick(evt)} component="a" size="lg">
 						Minify JS
 					</Button>
-					<ScrollArea >
+					<ScrollArea>
 						<Prism colorScheme="light" language="javascript" radius="md" noCopy={true}>
 							{minify}
 						</Prism>

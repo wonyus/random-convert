@@ -39,6 +39,7 @@ class MockStorage implements PersistentStorage {
 		return null
 	}
 	setItem() {}
+	removeItem() {}
 }
 let loading = true
 if (typeof window !== 'undefined') {
