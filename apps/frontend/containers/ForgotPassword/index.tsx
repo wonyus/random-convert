@@ -16,6 +16,7 @@ import {
 } from '@mantine/core'
 import useNotifications from '../../hooks/useNotifications'
 import Link from 'next/link'
+import SignoutComponent from '../../components/auth/signout'
 
 const useStyles = createStyles((theme) => ({
 	title: {
@@ -62,7 +63,7 @@ const ForgotPasswordContainer: FC = () => {
 			<Paper withBorder shadow="md" p={30} radius="md" mt="xl">
 				<TextInput label="Your email" placeholder="me@mantine.dev" required />
 				<Group position="apart" mt="lg" className={classes.controls}>
-					<Link href={'/signin'}>
+					<Link href={'/auth/signin'}>
 						<Text color="dimmed" size="sm" className={classes.control}>
 							<Center inline>
 								<IconArrowLeft size={12} stroke={1.5} />
@@ -71,6 +72,7 @@ const ForgotPasswordContainer: FC = () => {
 						</Text>
 					</Link>
 					<Button className={classes.control}>Reset password</Button>
+					<SignoutComponent />
 				</Group>
 			</Paper>
 		</Container>
