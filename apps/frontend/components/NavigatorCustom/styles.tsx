@@ -80,6 +80,11 @@ export const useStyles = createStyles((theme, _params, getRef) => {
 				color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
 			},
 		},
+		dropdownlink: {
+			display: 'contents',
+			textDecoration: 'none',
+			color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+		},
 		headerlink: {
 			display: 'flex',
 			alignItems: 'center',

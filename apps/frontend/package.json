@@ -39,7 +39,11 @@
 		"@types/node": "18.7.21",
 		"@types/react": "18.0.21",
 		"@types/react-dom": "18.0.6",
+		"@types/redux-batched-subscribe": "^0.1.4",
+		"@types/redux-logger": "^3.0.9",
 		"eslint-config-custom": "*",
+		"redux-batched-subscribe": "^0.1.6",
+		"redux-logger": "^3.0.6",
 		"tsconfig": "*",
 		"typescript": "^4.8.3"
 	}

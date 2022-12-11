@@ -1,13 +1,12 @@
 import { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
 import { useEffect } from 'react'
-import MinifyJSContainer from '../containers/MinifyJS'
 import useStore from '../hooks/useStore'
 import { getUser } from '../service/request'
 import { setUser } from '../store/actions'
 import { persistentStorage } from '../utils/useStorage/persistentStorage'
 
-const MinifyJSPage: NextPage = () => {
+const NotFoundPage: NextPage = () => {
 	const [{ user }, dispatch] = useStore()
 	const { data: session, status } = useSession()
 
@@ -20,7 +19,7 @@ const MinifyJSPage: NextPage = () => {
 		}
 	}, [])
 
-	return <MinifyJSContainer />
+	return <h1>NotFoundPage</h1>
 }
 
-export default MinifyJSPage
+export default NotFoundPage
