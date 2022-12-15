@@ -1,33 +1,19 @@
 import { useEffect, useState } from 'react'
 import { Navbar, SegmentedControl, Text, Drawer, Stack, Tooltip, UnstyledButton } from '@mantine/core'
 import {
-	IconShoppingCart,
-	IconLicense,
-	IconMessage2,
-	IconMessages,
-	IconFingerprint,
-	IconKey,
-	IconSettings,
-	Icon2fa,
-	IconUsers,
-	IconFileAnalytics,
-	IconDatabaseImport,
-	IconReceiptRefund,
 	IconLogout,
-	IconSwitchHorizontal,
 	TablerIcon,
-	IconHome2,
-	IconGauge,
-	IconDeviceDesktopAnalytics,
-	IconCalendarStats,
-	IconUser,
 	IconBrandJavascript,
 	IconBrandHtml5,
 	IconBrandCss3,
+	IconLogin,
+	IconUserPlus,
 } from '@tabler/icons'
 import { useStyles } from './styles'
 import { BurgerProps } from '.'
 import Link from 'next/link'
+import useStore from '../../hooks/useStore'
+import { onClickSignout } from '../auth/signout'
 
 interface NavbarLinkProps {
 	icon: TablerIcon
@@ -66,6 +52,7 @@ function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
 }
 export function DrawerCustom({ burgerOpened, toggleBurger, closeBurger }: BurgerProps) {
 	const { classes, cx } = useStyles()
+	const [{ user }, dispatch] = useStore()
 	const [section, setSection] = useState<'account' | 'general'>('account')
 	const [drawerActive, setDrawerActive] = useState('Billing')
 	const [active, setActive] = useState<number>(2)
@@ -92,6 +79,32 @@ export function DrawerCustom({ burgerOpened, toggleBurger, closeBurger }: Burger
 		</Link>
 	))
 
+	const navLink = user.loggedIn ? (
+		<>
+			<a
+				className={classes.linkdrawer}
+				onClick={(e) => {
+					e.preventDefault()
+					onClickSignout()
+				}}
+			>
+				<IconLogout className={classes.linkIcon} stroke={1.5} />
+				Sign Out
+			</a>
+		</>
+	) : (
+		<>
+			<Link href={'/auth/signin'} className={classes.linkdrawer}>
+				<IconLogin className={classes.linkIcon} stroke={1.5} />
+				Log in
+			</Link>
+			<Link href={'/auth/signup'} className={classes.linkdrawer}>
+				<IconUserPlus className={classes.linkIcon} stroke={1.5} />
+				Sign up
+			</Link>
+		</>
+	)
+
 	return (
 		<>
 			<Navbar height={height - 60} width={{ base: 80 }} className={classes.navbarsection} p="md">
@@ -102,8 +115,7 @@ export function DrawerCustom({ burgerOpened, toggleBurger, closeBurger }: Burger
 				</Navbar.Section>
 				<Navbar.Section>
 					<Stack justify="center" spacing={0}>
-						<NavbarLink icon={IconSwitchHorizontal} label="Change account" />
-						<NavbarLink icon={IconLogout} label="Logout" />
+						{user.loggedIn ? <NavbarLink icon={IconLogout} label="Logout" /> : null}
 					</Stack>
 				</Navbar.Section>
 			</Navbar>
@@ -130,17 +142,7 @@ export function DrawerCustom({ burgerOpened, toggleBurger, closeBurger }: Burger
 						{linksDrawer}
 					</Navbar.Section>
 
-					<Navbar.Section className={classes.footer}>
-						<a href="#" className={classes.linkdrawer} onClick={(event) => event.preventDefault()}>
-							<IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
-							<span>Change account</span>
-						</a>
-
-						<a href="#" className={classes.linkdrawer} onClick={(event) => event.preventDefault()}>
-							<IconLogout className={classes.linkIcon} stroke={1.5} />
-							<span>Logout</span>
-						</a>
-					</Navbar.Section>
+					<Navbar.Section className={classes.footer}>{navLink}</Navbar.Section>
 				</Navbar>
 			</Drawer>
 		</>

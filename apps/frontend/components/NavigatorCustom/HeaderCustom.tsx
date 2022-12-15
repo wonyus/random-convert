@@ -30,40 +30,51 @@ import {
 } from '@tabler/icons'
 import { useStyles } from './styles'
 import Link from 'next/link'
+import SignoutComponent from '../auth/signout'
+import useStore from '../../hooks/useStore'
+import Image from 'next/image'
 
 const mockdata = [
 	{
 		icon: IconCode,
+		link: '#',
 		title: 'Open source',
 		description: 'This Pokémon’s cry is very loud and distracting',
 	},
 	{
 		icon: IconCoin,
+		link: '#',
 		title: 'Free for everyone',
 		description: 'The fluid of Smeargle’s tail secretions changes',
 	},
 	{
 		icon: IconBook,
+		link: '#',
 		title: 'Documentation',
 		description: 'Yanma is capable of seeing 360 degrees without',
 	},
 	{
 		icon: IconFingerprint,
+		link: '#',
 		title: 'Security',
 		description: 'The shell’s rounded shape and the grooves on its.',
 	},
 	{
 		icon: IconChartPie3,
+		link: '#',
 		title: 'Analytics',
 		description: 'This Pokémon uses its flying ability to quickly chase',
 	},
 	{
 		icon: IconNotification,
+		link: '#',
 		title: 'Notifications',
 		description: 'Combusken battles with the intensely hot flames it spews',
 	},
 ]
 export function HeaderCustom({ burgerOpened, toggleBurger, closeBurger }: BurgerProps) {
+	const [{ user }, dispatch] = useStore()
+
 	const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false)
 	const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false)
 	const { classes, theme } = useStyles()
@@ -71,20 +82,35 @@ export function HeaderCustom({ burgerOpened, toggleBurger, closeBurger }: Burger
 	const links = mockdata.map((item) => (
 		<UnstyledButton className={classes.headersubLink} key={item.title}>
 			<Group noWrap align="flex-start">
-				<ThemeIcon size={34} variant="default" radius="md">
-					<item.icon size={22} color={theme.fn.primaryColor()} />
-				</ThemeIcon>
-				<div>
-					<Text size="sm" weight={500}>
-						{item.title}
-					</Text>
-					<Text size="xs" color="dimmed">
-						{item.description}
-					</Text>
-				</div>
+				<Link href={'#'} className={classes.dropdownlink}>
+					<ThemeIcon size={34} variant="default" radius="md">
+						<item.icon size={22} color={theme.fn.primaryColor()} />
+					</ThemeIcon>
+					<div>
+						<Text size="sm" weight={500}>
+							{item.title}
+						</Text>
+						<Text size="xs" color="dimmed">
+							{item.description}
+						</Text>
+					</div>
+				</Link>
 			</Group>
 		</UnstyledButton>
 	))
+
+	const btnHeaderHiddenMobile = user.loggedIn ? (
+		<SignoutComponent />
+	) : (
+		<>
+			<Link href={'/auth/signin'}>
+				<Button variant="default">Log in</Button>
+			</Link>
+			<Link href={'/auth/signup'}>
+				<Button>Sign up</Button>
+			</Link>
+		</>
+	)
 
 	return (
 		<Box pb={60}>
@@ -92,19 +118,20 @@ export function HeaderCustom({ burgerOpened, toggleBurger, closeBurger }: Burger
 				<Group position="apart" sx={{ height: '100%' }}>
 					<Group>
 						<Burger opened={burgerOpened} onClick={toggleBurger} size="sm" />
-						<MantineLogo size={28} />
+						<Image src="/icon/logo.png" alt="me" width="32" height="32" />
+						{/* <MantineLogo size={28} /> */}
 					</Group>
 
 					<Group sx={{ height: '100%' }} spacing={0} className={classes.headerhiddenMobile}>
-						<a href="#" className={classes.headerlink}>
+						<Link href={'/'} className={classes.headerlink}>
 							Home
-						</a>
+						</Link>
 						<HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
 							<HoverCard.Target>
 								<a href="#" className={classes.headerlink}>
 									<Center inline>
 										<Box component="span" mr={5}>
-											Features
+											Minify
 										</Box>
 										<IconChevronDown size={16} color={theme.fn.primaryColor()} />
 									</Center>
@@ -140,23 +167,11 @@ export function HeaderCustom({ burgerOpened, toggleBurger, closeBurger }: Burger
 								</div>
 							</HoverCard.Dropdown>
 						</HoverCard>
-						<a href="#" className={classes.headerlink}>
-							Learn
-						</a>
-						<a href="#" className={classes.headerlink}>
-							Academy
-						</a>
-					</Group>
-
-					<Group className={classes.headerhiddenMobile}>
-						<Link href={'/signin'}>
-							<Button variant="default">Log in</Button>
-						</Link>
-						<Link href={'/signup'}>
-							<Button>Sign up</Button>
+						<Link href={'/portfolio'} className={classes.headerlink}>
+							Portfolio
 						</Link>
 					</Group>
-
+					<Group className={classes.headerhiddenMobile}>{btnHeaderHiddenMobile}</Group>
 					<Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.headerhiddenDesktop} />
 				</Group>
 			</Header>
@@ -185,18 +200,16 @@ export function HeaderCustom({ burgerOpened, toggleBurger, closeBurger }: Burger
 						</Center>
 					</UnstyledButton>
 					<Collapse in={linksOpened}>{links}</Collapse>
-					<a href="#" className={classes.headerlink}>
+					<Link href={'#'} className={classes.headerlink}>
 						Learn
-					</a>
-					<a href="#" className={classes.headerlink}>
+					</Link>
+					<Link href={'#'} className={classes.headerlink}>
 						Academy
-					</a>
-
+					</Link>
 					<Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
 
 					<Group position="center" grow pb="xl" px="md">
-						<Button variant="default">Log in</Button>
-						<Button>Sign up</Button>
+						{btnHeaderHiddenMobile}
 					</Group>
 				</ScrollArea>
 			</Drawer>

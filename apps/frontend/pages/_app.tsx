@@ -4,13 +4,19 @@ import { MantineProvider } from '@mantine/core'
 import { NotificationsProvider } from '@mantine/notifications'
 import { Provider } from 'jotai'
 import NavigatorCustom from '../components/NavigatorCustom'
+import { SessionProvider } from 'next-auth/react'
+import '../Styles/Content.scss'
 export default function MyApp(props: AppProps) {
-	const { Component, pageProps } = props
-
+	const {
+		Component,
+		pageProps: { session, ...pageProps },
+	} = props
+	
 	return (
 		<>
 			<Head>
-				<title>WONYUS</title>
+				<title>randomNconvert</title>
+				<link rel="icon" href="icon/logo.ico" />
 				<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
 			</Head>
 			<Provider>
@@ -31,8 +37,10 @@ export default function MyApp(props: AppProps) {
 					}}
 				>
 					<NotificationsProvider>
-						<NavigatorCustom/>
-						<Component {...pageProps} />
+						<SessionProvider session={session}>
+							<NavigatorCustom />
+							<Component {...pageProps} />
+						</SessionProvider>
 					</NotificationsProvider>
 				</MantineProvider>
 			</Provider>

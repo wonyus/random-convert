@@ -1,18 +1,6 @@
-import { FC, forwardRef, useState } from 'react'
+import { FC, forwardRef } from 'react'
 import { useRouter } from 'next/router'
-import {
-	TextInput,
-	PasswordInput,
-	Anchor,
-	Paper,
-	Title,
-	Text,
-	Container,
-	Group,
-	Button,
-	Select,
-	Box,
-} from '@mantine/core'
+import { TextInput, PasswordInput, Paper, Title, Text, Container, Group, Button, Select, Box } from '@mantine/core'
 import useNotifications from '../../hooks/useNotifications'
 import Link from 'next/link'
 import { IconGenderFemale, IconGenderMale } from '@tabler/icons'
@@ -72,7 +60,7 @@ const SignUpContainer: FC = () => {
 					filter={(value, item: any) => item.label.toLowerCase().includes(value.toLowerCase().trim())}
 				/>
 				<Group position="apart" mt="lg">
-					<Link href={'/signin'}>
+					<Link href={'/auth/signin'}>
 						<Text color="dimmed" size="sm" align="center" mt={5}>
 							Sign in?
 						</Text>{' '}

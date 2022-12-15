@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import SignInContainer from '../containers/SignIn'
+import SignInContainer from '../../containers/SignIn'
 
 const SignInPage: NextPage = () => {
 	return <SignInContainer />

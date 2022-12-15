@@ -18,6 +18,7 @@ async function bootstrap() {
   
   // handle all user input validation globally
   app.useGlobalPipes(new ValidateInputPipe());
-  await app.listen(8000);
+  app.enableCors();
+  await app.listen(process.env.PORT || 8000, '0.0.0.0');
 }
 bootstrap();

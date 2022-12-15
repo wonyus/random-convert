@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+  web:
+    container_name: frontend
+    env_file:
+      - ./apps/frontend/.env.production.local
+    environment:
+      - NODE_ENV=production
+    build:
+      context: .
+      dockerfile: ./apps/frontend/Dockerfile.production.local
+    restart: always
+    ports:
+      - 3000:3000
+
+    networks:
+      - app_network
+  api:
+    container_name: backend
+    env_file:
+      - ./apps/backend/.env.production.local
+    environment:
+      - NODE_ENV=production
+    build:
+      context: .
+      dockerfile: ./apps/backend/Dockerfile.production.local
+    restart: always
+    ports:
+      - 8000:8000
+    networks:
+      - app_network
+
+#   db:
+#     container_name: database
+#     image: postgres:14.2-alpine
+
+#     volumes:
+#       - postgres-db:/var/lib/postgresql/data
+
+#     ports:
+#       - "5433:5432"
+
+#     environment:
+#       - POSTGRES_DB=randomnconvert_database
+#       - POSTGRES_USER=postgres
+#       - POSTGRES_PASSWORD=postgres
+
+# # Define a network, which allows containers to communicate
+# # with each other, by using their container name as a hostname
+networks:
+  app_network:
+    external: true
+# volumes:
+#   postgres-db:
+

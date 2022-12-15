@@ -4,8 +4,8 @@ import styled from '@emotion/styled'
 import { Button, Text } from '@mantine/core'
 import useNotifications from '../../hooks/useNotifications'
 import { setJWTAction } from '../../store/actions'
-import { useAtom } from 'jotai'
-import storeAtom from '../../store'
+import { getAllPost } from '../../service/request'
+import useStore from '../../hooks/useStore'
 const Center = styled.div({
 	width: '100vw',
 	height: '93.5vh',
@@ -18,13 +18,24 @@ const Center = styled.div({
 const AppContainer: FC = () => {
 	const router = useRouter()
 	const { callNotification } = useNotifications()
-	const [state, dispatch] = useAtom(storeAtom)
+	const [state, dispatch] = useStore()
 
 	const handleLogout = (e: any) => {
 		console.log(state)
 
 		try {
 			dispatch(setJWTAction({ data: 111 }))
+			callNotification({ message: 'Logout successfully', type: 'success' })
+		} catch (err: any) {
+			callNotification({ message: err.message, type: 'error' })
+		}
+	}
+
+	const posts = async () => {
+		try {
+			const data = await getAllPost({}, {})
+			console.log(data)
+
 			callNotification({ message: 'Logout successfully', type: 'success' })
 		} catch (err: any) {
 			callNotification({ message: err.message, type: 'error' })
@@ -42,6 +53,9 @@ const AppContainer: FC = () => {
 
 			<Button onClick={(evt) => handleLogout(evt)} component="a" size="lg">
 				Sign In
+			</Button>
+			<Button onClick={(evt) => posts()} component="a" size="lg">
+				test
 			</Button>
 		</Center>
 	)
