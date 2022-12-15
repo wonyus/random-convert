@@ -13,7 +13,7 @@ const NavigatorCustom = () => {
 	return (
 		<>
 			<HeaderCustom burgerOpened={burgerOpened} toggleBurger={toggleBurger} closeBurger={closeBurger} />
-			<DrawerCustom burgerOpened={burgerOpened} toggleBurger={toggleBurger} closeBurger={closeBurger} />
+			{/* <DrawerCustom burgerOpened={burgerOpened} toggleBurger={toggleBurger} closeBurger={closeBurger} /> */}
 		</>
 	)
 }

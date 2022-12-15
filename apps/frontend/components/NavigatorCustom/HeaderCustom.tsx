@@ -32,6 +32,7 @@ import { useStyles } from './styles'
 import Link from 'next/link'
 import SignoutComponent from '../auth/signout'
 import useStore from '../../hooks/useStore'
+import Image from 'next/image'
 
 const mockdata = [
 	{
@@ -117,7 +118,8 @@ export function HeaderCustom({ burgerOpened, toggleBurger, closeBurger }: Burger
 				<Group position="apart" sx={{ height: '100%' }}>
 					<Group>
 						<Burger opened={burgerOpened} onClick={toggleBurger} size="sm" />
-						<MantineLogo size={28} />
+						<Image src="/image/icon/logo.png" alt="me" width="32" height="32" />
+						{/* <MantineLogo size={28} /> */}
 					</Group>
 
 					<Group sx={{ height: '100%' }} spacing={0} className={classes.headerhiddenMobile}>
@@ -129,7 +131,7 @@ export function HeaderCustom({ burgerOpened, toggleBurger, closeBurger }: Burger
 								<a href="#" className={classes.headerlink}>
 									<Center inline>
 										<Box component="span" mr={5}>
-											Features
+											Minify
 										</Box>
 										<IconChevronDown size={16} color={theme.fn.primaryColor()} />
 									</Center>
@@ -165,11 +167,8 @@ export function HeaderCustom({ burgerOpened, toggleBurger, closeBurger }: Burger
 								</div>
 							</HoverCard.Dropdown>
 						</HoverCard>
-						<Link href={'#'} className={classes.headerlink}>
-							Learn
-						</Link>
-						<Link href={'#'} className={classes.headerlink}>
-							Academy
+						<Link href={'/portfolio'} className={classes.headerlink}>
+							Portfolio
 						</Link>
 					</Group>
 					<Group className={classes.headerhiddenMobile}>{btnHeaderHiddenMobile}</Group>

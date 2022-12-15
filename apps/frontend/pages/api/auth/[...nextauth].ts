@@ -1,9 +1,7 @@
-import type { DefaultSession, NextAuthOptions } from 'next-auth'
+import type { NextAuthOptions } from 'next-auth'
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import axios from 'axios'
 import { randomBytes, randomUUID } from 'crypto'
-import jwt from 'jsonwebtoken'
 import { logIn } from '../../../service/request'
 
 export const authOptions: NextAuthOptions = {
