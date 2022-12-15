@@ -27,6 +27,7 @@
 		"axios": "^1.2.1",
 		"dayjs": "^1.11.6",
 		"embla-carousel-react": "^7.0.5",
+		"html-minifier-terser": "^7.1.0",
 		"jotai": "^1.8.4",
 		"jsonwebtoken": "^8.5.1",
 		"jwt-decode": "^3.1.2",
@@ -42,6 +43,7 @@
 		"yup": "^0.32.11"
 	},
 	"devDependencies": {
+		"@types/html-minifier-terser": "^7.0.0",
 		"@types/node": "18.7.21",
 		"@types/react": "18.0.21",
 		"@types/react-dom": "18.0.6",
@@ -53,5 +55,10 @@
 		"redux-logger": "^3.0.6",
 		"tsconfig": "*",
 		"typescript": "^4.8.3"
+	},
+	"browser": {
+		"fs": false,
+		"path": false,
+		"os": false
 	}
 }

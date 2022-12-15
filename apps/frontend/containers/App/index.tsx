@@ -45,18 +45,15 @@ const AppContainer: FC = () => {
 	return (
 		<Center>
 			<Text size={48} weight="bold" color="blue">
-				Welcome
+				Welcome to random and convert Website
 			</Text>
-			<Text size={48} weight="bold" color="blue">
-				Welcome
-			</Text>
-
-			<Button onClick={(evt) => handleLogout(evt)} component="a" size="lg">
+		
+			{/* <Button onClick={(evt) => handleLogout(evt)} component="a" size="lg">
 				Sign In
 			</Button>
 			<Button onClick={(evt) => posts()} component="a" size="lg">
 				test
-			</Button>
+			</Button> */}
 		</Center>
 	)
 }
