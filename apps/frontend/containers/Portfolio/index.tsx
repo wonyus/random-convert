@@ -4,6 +4,15 @@ import styled from '@emotion/styled'
 import useNotifications from '../../hooks/useNotifications'
 import { setJWTAction } from '../../store/actions'
 import useStore from '../../hooks/useStore'
+import About from '../../components/sections/About'
+import Header from '../../components/sections/Header'
+import Footer from '../../components/sections/Footer'
+import SectionOne from '../../components/sections/SectionOne'
+import SectionTwo from '../../components/sections/SectionTwo'
+import SectionThree from '../../components/sections/SectionThree'
+import SectionFour from '../../components/sections/SectionFour'
+import SectionFive from '../../components/sections/SectionFive'
+import { TypographyStylesProvider } from '@mantine/core'
 const Center = styled.div({
 	width: '100vw',
 	height: '93.5vh',
@@ -29,12 +38,19 @@ const PortfolioContainer: FC = () => {
 		}
 	}
 
-
-
 	return (
-		<Center>
-			
-		</Center>
+		<>
+			<TypographyStylesProvider>
+				<Header />
+				<About />
+				<SectionOne />
+				<SectionTwo />
+				{/* <SectionThree />
+				<SectionFour />
+				<SectionFive /> */}
+				<Footer />
+			</TypographyStylesProvider>
+		</>
 	)
 }
 

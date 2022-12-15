@@ -5,6 +5,7 @@ import { NotificationsProvider } from '@mantine/notifications'
 import { Provider } from 'jotai'
 import NavigatorCustom from '../components/NavigatorCustom'
 import { SessionProvider } from 'next-auth/react'
+import '../Styles/Content.scss'
 export default function MyApp(props: AppProps) {
 	const {
 		Component,
@@ -15,7 +16,7 @@ export default function MyApp(props: AppProps) {
 		<>
 			<Head>
 				<title>randomNconvert</title>
-				<link rel="icon" href="image/icon/logo.ico" />
+				<link rel="icon" href="icon/logo.ico" />
 				<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
 			</Head>
 			<Provider>

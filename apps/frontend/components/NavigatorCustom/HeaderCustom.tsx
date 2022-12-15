@@ -118,7 +118,7 @@ export function HeaderCustom({ burgerOpened, toggleBurger, closeBurger }: Burger
 				<Group position="apart" sx={{ height: '100%' }}>
 					<Group>
 						<Burger opened={burgerOpened} onClick={toggleBurger} size="sm" />
-						<Image src="/image/icon/logo.png" alt="me" width="32" height="32" />
+						<Image src="/icon/logo.png" alt="me" width="32" height="32" />
 						{/* <MantineLogo size={28} /> */}
 					</Group>
 
