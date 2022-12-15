@@ -1,4 +1,5 @@
 import * as Terser from 'terser'
+import { minify as Minify } from 'html-minifier-terser'
 
 const minifyJS = async (js: string, options: Terser.MinifyOptions) => {
 	// Minify the JavaScript code using UglifyJS
@@ -20,24 +21,24 @@ const minifyTS = async (ts: string, options: Terser.MinifyOptions) => {
 	return minified.code
 }
 
-const minifyHTML = async (html: string, options: Terser.MinifyOptions) => {
+const minifyHTML = async (html: string, options: any) => {
 	// Minify the HTML code using html-minifier
-	const minified: any = await Terser.minify(html, options)
+	const minified: any = Minify(html, options)
 	if (minified.error) {
 		// Handle error
 		throw minified.error
 	}
-	return minified.code
+	return minified
 }
 
-const minifyCSS = async (css: string, options: Terser.MinifyOptions) => {
+const minifyCSS = async (css: string, options: any) => {
 	// Minify the CSS code
-	const minified: any = await Terser.minify(css, options)
+	const minified: any = await Minify(css, options)
 	if (minified.error) {
 		// Handle error
 		throw minified.error
 	}
-	return minified.code
+	return minified
 }
 
 export const minify = (content: string, type: 'js' | 'html' | 'css' | 'ts', options: any) => {
