@@ -14,7 +14,7 @@
     },
     "builds": [
         {
-            "src": "src/main.ts",
+            "src": ".",
             "use": "@vercel/node"
         }
     ],
