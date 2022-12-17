@@ -1,5 +1,17 @@
 {
     "version": 2,
+    "env": {
+        "DATABASE_HOST": "DATABASE_HOST",
+        "DATABASE_PORT": "DATABASE_PORT",
+        "DATABASE_USER": "DATABASE_USER",
+        "DATABASE_PASS": "DATABASE_PASS",
+        "DATABASE_DIALECT": "DATABASE_DIALECT",
+        "DATABASE_NAME_PRODUCTION": "DATABASE_NAME_PRODUCTION",
+        "TOKEN_EXPIRATION": "TOKEN_EXPIRATION",
+        "JWT_REFRESH_SECRET": "JWT_REFRESH_SECRET",
+        "JWT_ACCESS_SECRET": "JWT_ACCESS_SECRET",
+        "JWTKEY": "JWTKEY"
+    },
     "builds": [
         {
             "src": "src/main.ts",
