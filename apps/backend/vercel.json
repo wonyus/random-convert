@@ -2,5 +2,11 @@
     "version": 2,
     "buildCommand": "yarn build",
     "outputDirectory": ".",
-    "devCommand": "yarn dev"
+    "devCommand": "yarn dev",
+    "routes": [
+        {
+          "src": "/(.*)",
+          "dest": "dist/main.js"
+        }
+      ]
 }
