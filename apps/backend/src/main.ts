@@ -5,7 +5,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api/v1');
+  // app.setGlobalPrefix('api/v1');
 
   const config = new DocumentBuilder()
     .setTitle('Random and Convert')
@@ -19,6 +19,6 @@ async function bootstrap() {
   // handle all user input validation globally
   app.useGlobalPipes(new ValidateInputPipe());
   app.enableCors();
-  await app.listen(process.env.PORT || 8000, '0.0.0.0');
+  await app.listen(process.env.PORT || 8000);
 }
 bootstrap();
