@@ -46,6 +46,14 @@ axiosInstance.interceptors.request.use(async (request) => {
 
 	if (!isExpired) return request
 
+	// let responseData = () => {
+	// 	return new Promise(function (resolve, reject) {
+	// 		fetch(`${baseURL}/auth/refresh`, {}).then((response) => {
+	// 			resolve(response)
+	// 		})
+	// 	})
+	// }
+	// let response:any = await responseData()
 	const response = await refreshInstance.get('/auth/refresh')
 	persistentStorage.setItem('authTokens', response.data)
 	request.headers!.Authorization = `Bearer ${response.data.accessToken}`

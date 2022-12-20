@@ -9,9 +9,12 @@ export const genAxiosRefreshToken = () => {
 			baseURL,
 			headers: {
 				'Access-Control-Allow-Origin': '*',
-				'Access-Control-Allow-Headers': 'content-type',
-				'Content-Type': 'application/json',
-				'Cross-Origin-Opener-Policy': 'same-origin'
+				'Access-Control-Allow-Methods': 'POST GET OPTIONS',
+				'Access-Control-Allow-Headers': '*',
+				'Access-Control-Max-Age': 1728000,
+				'Content-Type': 'application/x-www-form-urlencoded',
+				'charset':'UTF-8;application/json'
+				
 			},
 		}),
 	)
