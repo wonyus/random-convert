@@ -6,8 +6,8 @@ import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { atom, useAtom } from 'jotai'
 
-const usernameAtom = atom('wonyus11@outlook.com')
-const passwordAtom = atom('password')
+const usernameAtom = atom('')
+const passwordAtom = atom('')
 const SignInContainer: FC = () => {
 	const router = useRouter()
 	const { callNotification } = useNotifications()
