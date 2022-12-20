@@ -30,10 +30,9 @@ jobs:
       - name: Build and push
         run: |-
          docker buildx build \
-            -f ./apps/backend/Dockerfile
+            --file ./apps/backend/Dockerfile
             --platform linux/amd64,linux/arm64 \
             --tag wonyus/api:latest \
             --tag wonyus/api:${{ steps.commit.outputs.short }} \
             --build-arg BUILD_NUMBER=$(git rev-parse --short HEAD) \
-            --output type=image,push=true \
-            .
+            --output type=image,push=true
