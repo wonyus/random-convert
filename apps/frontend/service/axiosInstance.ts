@@ -17,6 +17,7 @@ const axiosInstance = setupInterceptorsTo(
 			'Access-Control-Allow-Origin': '*',
 			'Access-Control-Allow-Credentials': 'true',
 			'Access-Control-Allow-Headers': 'content-type',
+			'Content-Type': 'application/json',
 		},
 	}),
 )
