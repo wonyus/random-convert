@@ -17,7 +17,6 @@ const IndexPage: NextPage = () => {
 
 	useEffect(() => {
 		if ((!user.loggedIn && session) || (!user.loggedIn && persistentStorage.getItem('authTokens'))) {
-			console.log(user)
 			;(async () => {
 				const userData = await getUser({}, {})
 				dispatch(setUser({ ...userData, loggedIn: true }))
