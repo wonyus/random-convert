@@ -24,6 +24,7 @@ RUN yarn install
 # Build the project and its dependencies
 COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
+RUN yarn add turbo
 RUN yarn turbo run build --filter=backend...
 
 FROM node:16-alpine AS runner
