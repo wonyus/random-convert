@@ -15,6 +15,7 @@ RUN apk update
 WORKDIR /app
 
 # First install dependencies (as they change less often)
+ENV NODE_ENV production
 COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/yarn.lock ./yarn.lock
