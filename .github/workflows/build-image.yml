@@ -28,11 +28,9 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Build and push
-        run: |-
-         docker buildx build \
-            --file ./apps/backend/Dockerfile \
-            --platform linux/amd64,linux/arm64 \
-            --tag wonyus/api:latest \
-            --tag wonyus/api:${{ steps.commit.outputs.short }} \
-            --build-arg BUILD_NUMBER=$(git rev-parse --short HEAD) \
-            --output type=image,push=true
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./apps/backend/Dockerfile
+          push: true
+          tags: wonyus/api:latest, wonyus/api:${{ steps.commit.outputs.short }}
