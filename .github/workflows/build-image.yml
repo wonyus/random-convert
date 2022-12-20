@@ -30,4 +30,4 @@ jobs:
           context: ./apps/backend
           file: ./Dockerfile
           push: true
-          tags: wonyus/api:latest, wonyus/api:$(git rev-parse --short HEAD)
+          tags: wonyus/api:latest, wonyus/api:${{ git rev-parse --short HEAD }}
