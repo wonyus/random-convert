@@ -35,4 +35,4 @@ jobs:
             --tag wonyus/api:${{ steps.commit.outputs.short }} \
             --build-arg BUILD_NUMBER=$(git rev-parse --short HEAD) \
             --output type=image,push=true \
-            ./apps/backend
+            .
