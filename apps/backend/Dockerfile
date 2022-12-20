@@ -14,6 +14,7 @@ RUN apk add --no-cache libc6-compat
 RUN apk update
 WORKDIR /app
 
+RUN yarn global add turbo
 # First install dependencies (as they change less often)
 ENV NODE_ENV production
 COPY .gitignore .gitignore
@@ -24,7 +25,6 @@ RUN yarn install
 # Build the project and its dependencies
 COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
-RUN yarn add turbo
 RUN yarn turbo run build --filter=backend...
 
 FROM node:16-alpine AS runner
