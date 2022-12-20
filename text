@@ -1,0 +1,2 @@
+docker pull wonyus/api:latest
+docker run --detach --env-file ./apps/backend/.env.production.local  -dp 8000:8000 wonyus/api:latest
