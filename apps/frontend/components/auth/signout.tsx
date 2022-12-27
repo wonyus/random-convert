@@ -11,9 +11,9 @@ const SignoutComponent = () => {
 			//call api sign out
 			signOut()
 			persistentStorage.removeItem('authTokens')
-			callNotification({ message: 'Logout successfully', type: 'success' })
+			callNotification({ message: 'Logout successfully', type: 'success', status: 200 })
 		} catch (err: any) {
-			callNotification({ message: err.message, type: 'error' })
+			callNotification({ message: err.message, type: 'error', status: 400 })
 		}
 	}
 	return (
@@ -29,9 +29,9 @@ export const onClickSignout = () => {
 		//call api sign out
 		signOut()
 		persistentStorage.removeItem('authTokens')
-		callNotification({ message: 'Logout successfully', type: 'success' })
+		callNotification({ message: 'Logout successfully', type: 'success', status: 200 })
 	} catch (err: any) {
-		callNotification({ message: err.message, type: 'error' })
+		callNotification({ message: err.message, type: 'error', status: 400 })
 	}
 }
 

@@ -29,9 +29,9 @@ const MinifyJSContainer: FC = () => {
 			const result: string | undefined = await Promise.resolve(minifiedJS(data))
 			console.log(result)
 			setMinify(result)
-			callNotification({ message: 'Minify successfully', type: 'success' })
+			callNotification({ message: 'Minify successfully', type: 'success', status: 200 })
 		} catch (err: any) {
-			callNotification({ message: err.message, type: 'error' })
+			callNotification({ message: err.message, type: 'error', status: 401 })
 		}
 	}
 

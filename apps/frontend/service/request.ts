@@ -7,6 +7,13 @@ export const logIn = async (header: any, formdata: any) => {
 	return data
 }
 
+export const refresh = async (header: any, formdata: any) => {
+	const response = await defaultInstance.get('/auth/refresh', { headers: { ...header } }).catch((e) => console.log(e.data))
+
+	const { data }: any = response
+	return data
+}
+
 export const register = async (header: any, formdata: any) => {
 	const response = await defaultInstance.post('/auth/signup', formdata)
 	const { data }: any = response

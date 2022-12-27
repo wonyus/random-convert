@@ -29,9 +29,9 @@ const MinifyCSSContainer: FC = () => {
 			const result: string | undefined = await Promise.resolve(minifiedCSS(data))
 			console.log(result)
 			setMinify(result)
-			callNotification({ message: 'Minify successfully', type: 'success' })
+			callNotification({ message: 'Minify successfully', type: 'success', status: 200 })
 		} catch (err: any) {
-			callNotification({ message: err.message, type: 'error' })
+			callNotification({ message: err.message, type: 'error', status: 401 })
 		}
 	}
 
@@ -51,13 +51,7 @@ const MinifyCSSContainer: FC = () => {
 					/>
 					<ScrollArea sx={{ minHeight: 10, maxHeight: 300 }}>
 						{value !== '' ? (
-							<Prism
-								colorScheme="light"
-								language="css"
-								radius="md"
-								withLineNumbers={true}
-								noCopy={true}
-							>
+							<Prism colorScheme="light" language="css" radius="md" withLineNumbers={true} noCopy={true}>
 								{value}
 							</Prism>
 						) : null}
