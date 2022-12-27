@@ -33,9 +33,9 @@ const ForgotPasswordContainer: FC = () => {
 
 	const handleForgotPassword = async () => {
 		try {
-			callNotification({ message: 'Login successfully', type: 'success' })
+			callNotification({ message: 'Login successfully', type: 'success', status: 200 })
 		} catch (err: any) {
-			callNotification({ message: err.message, type: 'error' })
+			callNotification({ message: err.message, type: 'error', status: 200 })
 		}
 	}
 	return (

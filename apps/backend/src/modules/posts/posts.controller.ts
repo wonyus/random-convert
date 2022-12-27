@@ -22,7 +22,7 @@ export class PostsController {
 
   //   @Get()
   @UseGuards(AuthGuard('jwt'))
-  @Get('/test')
+  @Get('/')
   async findAll() {
     // get all posts in the db
     return await this.postService.findAll();

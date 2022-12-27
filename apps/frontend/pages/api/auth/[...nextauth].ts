@@ -2,7 +2,38 @@ import type { NextAuthOptions } from 'next-auth'
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { randomBytes, randomUUID } from 'crypto'
-import { logIn } from '../../../service/request'
+import { logIn, refresh } from '../../../service/request'
+import jwt_decode from 'jwt-decode'
+import dayjs from 'dayjs'
+
+async function refreshAccessToken(token: any) {
+	console.log('refreshAccessToken')
+
+	try {
+		const response = await refresh(
+			{
+				Authorization: `Bearer ${token.tokens.refreshToken}`,
+			},
+			{},
+		)
+
+		if (!response) {
+			throw new Error()
+		}
+		const tokenData: any = jwt_decode(response.accessToken)
+
+		return {
+			...token,
+			tokens: { ...response },
+			accessTokenExpires: tokenData.exp,
+		}
+	} catch (error) {
+		return {
+			...token,
+			error: 'RefreshAccessTokenError',
+		}
+	}
+}
 
 export const authOptions: NextAuthOptions = {
 	session: {
@@ -41,19 +72,32 @@ export const authOptions: NextAuthOptions = {
 		async redirect({ url, baseUrl }) {
 			return baseUrl
 		},
+		async jwt({ token, user }) {
+			console.log('jwt')
+
+			if (user) {
+				const tokenData: any = jwt_decode(user.tokens?.accessToken)
+				// if Expire
+				token.accessTokenExpires = tokenData.exp
+				token.tokens = user.tokens
+				token.role = 'user'
+			}
+
+			const token_str: any = token.accessTokenExpires
+			if (dayjs.unix(token_str).diff(dayjs()) > 1) {
+				return token
+			}
+
+			return refreshAccessToken(token)
+		},
 		async session({ session, token, user }) {
+			console.log('session')
+
 			if (token?.tokens) {
 				session.tokens = token.tokens
-				session.role = 'admin'
+				session.role = 'user'
 			}
 			return session
-		},
-		async jwt({ token, user, account, profile, isNewUser }) {
-			if (user) {
-				token.tokens = user.tokens
-				token.role = 'admin'
-			}
-			return token
 		},
 	},
 }
