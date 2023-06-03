@@ -28,7 +28,7 @@ refreshInstance.interceptors.request.use((req) => {
 	return req
 })
 refreshInstance.interceptors.response.use((res) => {
-	axiosInstance.defaults.headers!.Authorization = `Bearer ${res.data.accessToken}`
+	axiosInstance.defaults.headers!.Authorization = `Bearer ${res.data.AccessToken}`
 	return res
 })
 
@@ -46,9 +46,9 @@ axiosInstance.interceptors.request.use(async (request) => {
 
 	if (!isExpired) return request
 	
-	const response = await refreshInstance.get('/auth/refresh')
+	const response = await refreshInstance.get('/auth-service/refresh')
 	persistentStorage.setItem('authTokens', response.data)
-	request.headers!.Authorization = `Bearer ${response.data.accessToken}`
+	request.headers!.Authorization = `Bearer ${response.data.AccessToken}`
 	return request
 })
 

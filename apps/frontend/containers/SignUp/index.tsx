@@ -4,6 +4,9 @@ import { TextInput, PasswordInput, Paper, Title, Text, Container, Group, Button,
 import useNotifications from '../../hooks/useNotifications'
 import Link from 'next/link'
 import { IconGenderFemale, IconGenderMale } from '@tabler/icons'
+import { atom, useAtom } from 'jotai'
+import { register } from '../../service/request'
+import { signIn } from 'next-auth/react'
 
 const data = [
 	{ label: 'Male', value: 'male', icon: <IconGenderMale /> },
@@ -14,16 +17,32 @@ interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
 	label: string
 	value: string
 }
+const nameAtom = atom('')
+const usernameAtom = atom('')
+const passwordAtom = atom('')
+const emailAtom = atom('')
+const genderAtom = atom('')
 
 const SignUpContainer: FC = () => {
 	const router = useRouter()
 	const { callNotification } = useNotifications()
 
+	const [name, setName] = useAtom(nameAtom)
+	const [username, setUsername] = useAtom(usernameAtom)
+	const [password, setPassword] = useAtom(passwordAtom)
+	const [email, setEmail] = useAtom(emailAtom)
+	const [gender, setGender] = useAtom<string | null>(genderAtom)
+
 	const handleSignUp = async () => {
 		try {
-			callNotification({ message: 'Login successfully', type: 'success' })
+			const response = await register({}, { name, username, password, email })
+
+			if (response) {
+				signIn('credentials', { username, password })
+				callNotification({ message: 'Login successfully', type: 'success' })
+			}
 		} catch (err: any) {
-			callNotification({ message: err.message, type: 'error' })
+			callNotification({ message: err.response.data.message, type: 'error' })
 		}
 	}
 
@@ -46,11 +65,37 @@ const SignUpContainer: FC = () => {
 			</Title>
 
 			<Paper withBorder shadow="md" p={30} mt={30} radius="md">
-				<TextInput label="Username" placeholder="Username" required />
-				<TextInput label="Email" placeholder="you@randomnconvert.dev" required />
-				<PasswordInput label="Password" placeholder="Your password" required mt="md" />
-				<Select
+				<TextInput
+					label="Username"
+					placeholder="Username"
+					onChange={(e) => setUsername(e.target.value)}
+					required
+					mt="md"
+				/>
+				<TextInput
+					label="Email"
+					placeholder="you@randomnconvert.dev"
+					onChange={(e) => setEmail(e.target.value)}
+					required
+					mt="md"
+				/>
+				<TextInput
+					label="Name"
+					placeholder="name"
+					onChange={(e) => setName(e.target.value)}
+					required
+					mt="md"
+				/>
+				<PasswordInput
+					label="Password"
+					placeholder="Your password"
+					onChange={(e) => setPassword(e.target.value)}
+					required
+					mt="md"
+				/>
+				{/* <Select
 					label="Gender"
+					onChange={setGender}
 					placeholder="Pick one"
 					itemComponent={SelectItem}
 					data={data}
@@ -58,15 +103,15 @@ const SignUpContainer: FC = () => {
 					maxDropdownHeight={400}
 					nothingFound="Not Found"
 					filter={(value, item: any) => item.label.toLowerCase().includes(value.toLowerCase().trim())}
-				/>
-				<Group position="apart" mt="lg">
+				/> */}
+				<Group position="apart" mt="lg" sx={{ display: 'flex', justifyContent: 'end' }}>
 					<Link href={'/auth/signin'}>
 						<Text color="dimmed" size="sm" align="center" mt={5}>
 							Sign in?
 						</Text>{' '}
 					</Link>
 				</Group>
-				<Button fullWidth mt="xl">
+				<Button fullWidth mt="xl" onClick={() => handleSignUp()}>
 					Sign up
 				</Button>
 			</Paper>

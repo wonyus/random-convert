@@ -17,9 +17,7 @@ const SignInContainer: FC = () => {
 
 	const handleSignIn = async () => {
 		try {
-			const data = signIn('credentials', { username, password })
-			console.log(data)
-
+			signIn('credentials', { username, password })
 			callNotification({ message: 'Login successfully', type: 'success' })
 		} catch (err: any) {
 			callNotification({ message: err.message, type: 'error' })

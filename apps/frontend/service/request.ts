@@ -1,14 +1,32 @@
 import axiosInstance from './axiosInstance'
 import defaultInstance from './axiosglobal'
+interface RequestAxios {
+	header: any
+	formdata: any
+}
+const requestForm: RequestAxios = {
+	header: {},
+	formdata: {},
+}
 
 export const logIn = async (header: any, formdata: any) => {
-	const response = await defaultInstance.post('/auth/login', formdata)
+	const response = await defaultInstance.post('/auth-service/login', formdata)
 	const { data }: any = response
 	return data
 }
 
 export const register = async (header: any, formdata: any) => {
-	const response = await defaultInstance.post('/auth/signup', formdata)
+	try {
+		const response = await defaultInstance.post('/auth-service/signup', formdata)
+		const { data }: any = response
+		return data
+	} catch (error: any) {
+		throw error
+	}
+}
+
+export const getNewtoken = async (header: any, formdata: any) => {
+	const response = await defaultInstance.post('/auth-service/refresh', formdata)
 	const { data }: any = response
 	return data
 }
@@ -20,7 +38,7 @@ export const getAllPost = async (header: any, formdata: any) => {
 }
 
 export const getUser = async (header: any, formdata: any) => {
-	const response = await axiosInstance.get('/users', formdata)
+	const response = await axiosInstance.get('/auth-service/user', formdata)
 	const { data }: any = response
 	return data
 }

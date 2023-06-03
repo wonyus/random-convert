@@ -26,7 +26,7 @@ export const databaseProviders = [
             }
             const sequelize = new Sequelize(config);
             sequelize.addModels([User, Post, Minifier]);
-            await sequelize.sync();
+            // await sequelize.sync();
             return sequelize;
         },
     },
