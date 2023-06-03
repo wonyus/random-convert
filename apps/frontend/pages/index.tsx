@@ -11,9 +11,17 @@ const IndexPage: NextPage = () => {
 	const [{ user }, dispatch] = useStore()
 	const { data: session, status } = useSession()
 
+	if (session && !persistentStorage.getItem('authTokens')) {
+		persistentStorage.setItem('authTokens', {
+			accessToken: session?.user?.AccessToken,
+			refreshToken: session?.user?.RefreshToken,
+		})
+	}
+
 	useEffect(() => {
-		if (!user.loggedIn && session) {
-			persistentStorage.setItem('authTokens', session.tokens)
+		console.log(session);
+		
+		if ((!user.loggedIn && session) || (!user.loggedIn && persistentStorage.getItem('authTokens'))) {
 			;(async () => {
 				const userData = await getUser({}, {})
 				dispatch(setUser({ ...userData, loggedIn: true }))

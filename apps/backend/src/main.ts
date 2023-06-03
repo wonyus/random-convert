@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidateInputPipe } from './core/pipes/validate.pipe';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,6 +19,7 @@ async function bootstrap() {
 
   // handle all user input validation globally
   app.useGlobalPipes(new ValidateInputPipe());
+
   app.enableCors({
     origin: [
       'http://localhost:3000',
@@ -26,6 +28,18 @@ async function bootstrap() {
     methods: ['GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'],
     credentials: true,
   });
+
+  // Proxy Auth
+  app.use(
+    '/api/v1/auth-service',
+    createProxyMiddleware({
+      target: process.env.AUTH_SERVICE,
+      pathRewrite: { '/api/v1/auth-service/': '/' },
+      changeOrigin: true,
+      secure: true,
+    }),
+  );
+
   await app.listen(process.env.PORT || 8000);
 }
 bootstrap();

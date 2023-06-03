@@ -1,7 +1,8 @@
-import { Controller, UseGuards, Request, Get } from '@nestjs/common';
+import { Controller, UseGuards, Get, Post, Request } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/user.dto';
 import { AccessTokenGuard } from 'src/core/guards/accessToken.guard';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UserController {
@@ -11,6 +12,6 @@ export class UserController {
   @Get()
   async setUser(@Request() req) {
     const userId = req.user['sub'];
-    return await this.userService.findOneById(userId);
+    return userId
   }
 }

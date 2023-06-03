@@ -22,12 +22,12 @@ const SignInContainer: FC = () => {
 	const [password, setPassword] = useAtom(passwordAtom)
 
 	const handleSignIn = async () => {
+
 		const { error, status, ok, url }: any = await signIn('credentials', {
 			redirect: false,
 			username,
 			password,
 		})
-		
 		if (ok) {
 			callNotification({ message: 'Login successfully', type: 'success', status: status })
 			router.push('/')

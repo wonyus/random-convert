@@ -18,7 +18,7 @@ export class User extends Model<User> {
     primaryKey: true,
   })
   public id: number;
-  
+
   @Column({
     type: DataType.STRING,
     allowNull: false,
@@ -40,8 +40,6 @@ export class User extends Model<User> {
     values: ['male', 'female'],
     allowNull: false,
   })
-  gender: string;
-
   @Column({
     type: DataType.STRING,
   })
