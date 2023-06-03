@@ -34,17 +34,17 @@ const SignUpContainer: FC = () => {
 	const [gender, setGender] = useAtom<string | null>(genderAtom)
 
 	const handleSignUp = async () => {
-		try {
-			const response = await register({}, { name, username, password, email })
+	try {
+		const response = await register({}, { name, username, password, email })
 
-			if (response) {
-				signIn('credentials', { username, password })
-				callNotification({ message: 'Login successfully', type: 'success' })
-			}
-		} catch (err: any) {
-			callNotification({ message: err.response.data.message, type: 'error' })
+		if (response) {
+			signIn('credentials', { username, password })
+			callNotification({ message: 'Login successfully', type: 'success', status: 200 })
 		}
+	} catch (err: any) {
+		callNotification({ message: err.message, type: 'error', status: 200 })
 	}
+}
 
 	const SelectItem = forwardRef<HTMLDivElement, ItemProps>(({ icon, label, ...others }: ItemProps, ref) => (
 		<div ref={ref} {...others}>

@@ -9,7 +9,7 @@ export const AxiosGlobal = () => {
 			headers: {
 				'Access-Control-Allow-Origin': '*',
 				'Access-Control-Allow-Credentials': 'true',
-				'Access-Control-Allow-Headers': 'content-type',
+				'Access-Control-Allow-Headers': '*',
 			},
 		}),
 	)
