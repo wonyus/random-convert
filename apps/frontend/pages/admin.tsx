@@ -11,6 +11,8 @@ const adminPage: NextPage = () => {
 	const [{ user }, dispatch] = useStore()
 	const { data: session, status } = useSession()
 
+	console.log(session);
+	
 	useEffect(() => {
 		if ((!user.loggedIn && session) || (!user.loggedIn && persistentStorage.getItem('authTokens'))) {
 			;(async () => {

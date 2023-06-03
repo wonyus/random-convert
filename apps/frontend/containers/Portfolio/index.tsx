@@ -32,9 +32,9 @@ const PortfolioContainer: FC = () => {
 
 		try {
 			dispatch(setJWTAction({ data: 111 }))
-			callNotification({ message: 'Logout successfully', type: 'success' })
+			callNotification({ message: 'Logout successfully', type: 'success', status: 200 })
 		} catch (err: any) {
-			callNotification({ message: err.message, type: 'error' })
+			callNotification({ message: err.message, type: 'error', status: 401 })
 		}
 	}
 
