@@ -25,9 +25,9 @@ const AppContainer: FC = () => {
 
 		try {
 			dispatch(setJWTAction({ data: 111 }))
-			callNotification({ message: 'Logout successfully', type: 'success' })
+			callNotification({ message: 'Logout successfully', type: 'success', status: 200 })
 		} catch (err: any) {
-			callNotification({ message: err.message, type: 'error' })
+			callNotification({ message: err.message, type: 'error', status: 401 })
 		}
 	}
 
@@ -36,9 +36,9 @@ const AppContainer: FC = () => {
 			const data = await getAllPost({}, {})
 			console.log(data)
 
-			callNotification({ message: 'Logout successfully', type: 'success' })
+			callNotification({ message: 'Logout successfully', type: 'success', status: 200 })
 		} catch (err: any) {
-			callNotification({ message: err.message, type: 'error' })
+			callNotification({ message: err.message, type: 'error', status: 401 })
 		}
 	}
 
@@ -47,7 +47,7 @@ const AppContainer: FC = () => {
 			<Text size={48} weight="bold" color="blue">
 				Welcome to random and convert Website
 			</Text>
-		
+
 			{/* <Button onClick={(evt) => handleLogout(evt)} component="a" size="lg">
 				Sign In
 			</Button>

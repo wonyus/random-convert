@@ -1,19 +1,19 @@
 import axios from 'axios'
 import { setupInterceptorsTo } from './Interceptors'
 
-// const baseURL = process.env.ENDPOINT
-const baseURL = 'http://127.0.0.1:8000/api/v1'
+const baseURL = process.env.NEXT_PUBLIC_APP_ENDPOINT
 
 export const genAxiosRefreshToken = () => {
 	const refreshInstance = setupInterceptorsTo(
 		axios.create({
 			baseURL,
 			headers: {
-				'Access-Control-Allow-Origin': '*',
-				'Access-Control-Allow-Credentials': 'true',
-				'Access-Control-Allow-Headers': 'content-type',
+				'Access-Control-Allow-Origin': 'https://api.randomnconvert.online',
+				'Access-Control-Allow-Headers': '*',
+				'Content-Type': 'application/x-www-form-urlencoded',
 			},
 		}),
 	)
 	return refreshInstance
+	
 }

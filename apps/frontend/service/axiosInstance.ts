@@ -5,8 +5,7 @@ import dayjs from 'dayjs'
 import { persistentStorage } from '../utils/useStorage/persistentStorage'
 import { genAxiosRefreshToken } from './refreshToken'
 
-// const baseURL = process.env.ENDPOINT
-const baseURL = 'http://127.0.0.1:8000/api/v1'
+const baseURL = process.env.NEXT_PUBLIC_APP_ENDPOINT
 
 let authTokens = persistentStorage.getItem('authTokens')
 
@@ -18,6 +17,7 @@ const axiosInstance = setupInterceptorsTo(
 			'Access-Control-Allow-Origin': '*',
 			'Access-Control-Allow-Credentials': 'true',
 			'Access-Control-Allow-Headers': 'content-type',
+			'Content-Type': 'application/json',
 		},
 	}),
 )
@@ -28,7 +28,7 @@ refreshInstance.interceptors.request.use((req) => {
 	return req
 })
 refreshInstance.interceptors.response.use((res) => {
-	axiosInstance.defaults.headers!.Authorization = `Bearer ${res.data.accessToken}`
+	axiosInstance.defaults.headers!.Authorization = `Bearer ${res.data.AccessToken}`
 	return res
 })
 
@@ -45,10 +45,10 @@ axiosInstance.interceptors.request.use(async (request) => {
 	const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1
 
 	if (!isExpired) return request
-
-	const response = await refreshInstance.get('/auth/refresh')
-	persistentStorage.setItem('authTokens', response.data)
-	request.headers!.Authorization = `Bearer ${response.data.accessToken}`
+	
+	const response = await refreshInstance.get('/auth-service/refresh')
+	persistentStorage.setItem('authTokens', response.data.data)
+	request.headers!.Authorization = `Bearer ${response.data.data.AccessToken}`
 	return request
 })
 

@@ -6,8 +6,14 @@ import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { atom, useAtom } from 'jotai'
 
-const usernameAtom = atom('wonyus11@outlook.com')
-const passwordAtom = atom('password')
+interface signInRespone {
+	error: string
+	status: number
+	ok: boolean
+}
+
+const usernameAtom = atom('')
+const passwordAtom = atom('')
 const SignInContainer: FC = () => {
 	const router = useRouter()
 	const { callNotification } = useNotifications()
@@ -16,13 +22,17 @@ const SignInContainer: FC = () => {
 	const [password, setPassword] = useAtom(passwordAtom)
 
 	const handleSignIn = async () => {
-		try {
-			const data = signIn('credentials', { username, password })
-			console.log(data)
 
-			callNotification({ message: 'Login successfully', type: 'success' })
-		} catch (err: any) {
-			callNotification({ message: err.message, type: 'error' })
+		const { error, status, ok, url }: any = await signIn('credentials', {
+			redirect: false,
+			username,
+			password,
+		})
+		if (ok) {
+			callNotification({ message: 'Login successfully', type: 'success', status: status })
+			router.push('/')
+		} else {
+			callNotification({ message: error, type: 'error', status: status })
 		}
 	}
 
@@ -32,17 +42,17 @@ const SignInContainer: FC = () => {
 				align="center"
 				sx={(theme) => ({ fontFamily: `Greycliff CF, ${theme.fontFamily}`, fontWeight: 900 })}
 			>
-				Welcome back!
+				Welcome to RandomnConvert
 			</Title>
 			<Text color="dimmed" size="sm" align="center" mt={5}>
-				Do not have an account yet? <Link href={'/signup'}>Create account</Link>
+				Do not have an account yet? <Link href={'/auth/signup'}>Create account</Link>
 			</Text>
 
 			<Paper withBorder shadow="md" p={30} mt={30} radius="md">
 				<TextInput
 					value={username}
 					label="Email"
-					placeholder="you@mantine.dev"
+					placeholder="email@domain.com"
 					required
 					onChange={(e) => setUsername(e.target.value)}
 				/>
@@ -56,7 +66,7 @@ const SignInContainer: FC = () => {
 				/>
 				<Group position="apart" mt="lg">
 					<Checkbox label="Remember me" sx={{ lineHeight: 1 }} />
-					<Link href={'/forgotpassword'}>
+					<Link href={'/auth/forgotpassword'}>
 						<Text color="dimmed" size="sm" align="center" mt={5}>
 							Forgot password?
 						</Text>

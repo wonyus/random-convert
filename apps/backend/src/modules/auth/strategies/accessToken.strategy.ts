@@ -20,6 +20,8 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async validate(payload: JwtPayload) {
+    console.log(payload);
+    
     const user = await this.userService.findOneById(payload.sub);
     if (!user) {
       throw new UnauthorizedException(

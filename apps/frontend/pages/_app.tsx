@@ -18,6 +18,7 @@ export default function MyApp(props: AppProps) {
 				<title>randomNconvert</title>
 				<link rel="icon" href="icon/logo.ico" />
 				<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+				<meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 			</Head>
 			<Provider>
 				<MantineProvider
@@ -50,6 +51,5 @@ export default function MyApp(props: AppProps) {
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
 	const appProps = await App.getInitialProps(appContext)
-
 	return { ...appProps }
 }
