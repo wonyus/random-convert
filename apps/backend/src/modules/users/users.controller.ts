@@ -10,8 +10,8 @@ export class UserController {
 
   @UseGuards(AccessTokenGuard)
   @Get()
-  async setUser(@Request() req) {
+  async getUser(@Request() req) {
     const userId = req.user['sub'];
-    return userId
+    return this.userService.findOneById(userId)
   }
 }

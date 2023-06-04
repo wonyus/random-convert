@@ -12,12 +12,14 @@ const requestForm: RequestAxios = {
 export const logIn = async (header: any, formdata: any) => {
 	const response = await defaultInstance.post('/auth-service/login', formdata)
 	const { data }: any = response
-	return data
+
+	return data.data
 }
 
 export const refresh = async (header: any, formdata: any) => {
-	const response = await defaultInstance.get('/auth/refresh', { headers: { ...header } }).catch((e) => console.log(e.data))
-
+	const response = await defaultInstance
+		.get('/auth/refresh', { headers: { ...header } })
+		.catch((e) => console.log(e.data))
 	const { data }: any = response
 	return data
 }
@@ -41,7 +43,7 @@ export const getNewtoken = async (header: any, formdata: any) => {
 export const getAllPost = async (header: any, formdata: any) => {
 	const response = await axiosInstance.get('/posts/test', formdata)
 	const { data }: any = response
-	return data
+	return data.data
 }
 
 export const getUser = async (header: any, formdata: any) => {

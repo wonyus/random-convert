@@ -12,7 +12,7 @@ import {
 
 import { User } from '../../users/user.entity';
 
-@Table
+@Table({ underscored: true, modelName: 'minifier' })
 export class Minifier extends Model<Minifier> {
   @Column({
     type: DataType.STRING,

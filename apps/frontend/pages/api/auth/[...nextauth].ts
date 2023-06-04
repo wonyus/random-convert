@@ -68,7 +68,7 @@ export const authOptions: NextAuthOptions = {
 				const response = await logIn({}, credentials)
 
 				if (response) {
-					return response.message
+					return response
 				}
 				return Promise.reject(new Error(response?.errors))
 			},

@@ -8,7 +8,7 @@ import {
   DeletedAt,
 } from 'sequelize-typescript';
 
-@Table
+@Table({ paranoid: true, underscored: true, modelName: 'user' })
 export class User extends Model<User> {
   @Column({
     type: DataType.BIGINT,
@@ -17,37 +17,45 @@ export class User extends Model<User> {
     unique: true,
     primaryKey: true,
   })
-  public id: number;
+  id!: number;
 
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
-  name: string;
+  @CreatedAt createdAt!: Date;
+
+  @UpdatedAt updatedAt!: Date;
+
+  @DeletedAt deletedAt!: Date;
+
   @Column({
     type: DataType.STRING,
     unique: true,
     allowNull: false,
   })
-  email: string;
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
-  password: string;
-  @Column({
-    type: DataType.ENUM,
-    values: ['male', 'female'],
-    allowNull: false,
-  })
+  username!: string;
+
   @Column({
     type: DataType.STRING,
   })
-  refreshToken: string;
+  password!: string;
 
-  @CreatedAt public createdAt: Date;
+  @Column({
+    type: DataType.STRING,
+    unique: true,
+    allowNull: false,
+  })
+  email!: string;
 
-  @UpdatedAt public updatedAt: Date;
+  @Column({
+    type: DataType.STRING,
+  })
+  name!: string;
 
-  @DeletedAt public deletedAt: Date;
+  @Column({
+    type: DataType.STRING,
+  })
+  accessToken!: string;
+
+  @Column({
+    type: DataType.STRING,
+  })
+  refreshToken!: string;
 }
