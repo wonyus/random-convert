@@ -15,11 +15,16 @@ export class UsersService {
   }
 
   async findOneByEmail(email: string): Promise<User> {
-    return await this.userRepository.findOne<User>({ where: { email } });
+    return await this.userRepository.findOne<User>({
+      where: { email },
+    });
   }
 
   async findOneById(id: number): Promise<User> {
-    return await this.userRepository.findOne<User>({ where: { id } });
+    return await this.userRepository.findOne<User>({
+      // attributes: ['email', 'gender', 'name'],
+      where: { id },
+    });
   }
 
   async update(id: number, data: any): Promise<[number, User[]]> {

@@ -12,7 +12,7 @@ import {
 
 import { User } from '../users/user.entity';
 
-@Table
+@Table({ underscored: true, modelName: 'post' })
 export class Post extends Model<Post> {
   @Column({
     type: DataType.STRING,

@@ -3,7 +3,7 @@ import { useState, useRef } from 'react'
 import { Prism } from '@mantine/prism'
 import { Loader, Button, Container, SimpleGrid, Textarea, ScrollArea, CopyButton } from '@mantine/core'
 import useNotifications from '../../hooks/useNotifications'
-import { miniJS } from '../../utils/minify'
+import { minifiedJS } from '../../utils/minify'
 
 const MinifyJSContainer: FC = () => {
 	const timeoutRef = useRef<number>(-1)
@@ -26,12 +26,12 @@ const MinifyJSContainer: FC = () => {
 	const handleClick = async (e: any) => {
 		try {
 			const data: string = `${value}`
-			const result: string | undefined = await Promise.resolve(miniJS(data))
+			const result: string | undefined = await Promise.resolve(minifiedJS(data))
 			console.log(result)
 			setMinify(result)
-			callNotification({ message: 'Minify successfully', type: 'success' })
+			callNotification({ message: 'Minify successfully', type: 'success', status: 200 })
 		} catch (err: any) {
-			callNotification({ message: err.message, type: 'error' })
+			callNotification({ message: err.message, type: 'error', status: 401 })
 		}
 	}
 
@@ -65,7 +65,7 @@ const MinifyJSContainer: FC = () => {
 					<Button onClick={(evt) => handleClick(evt)} component="a" size="lg">
 						Minify JS
 					</Button>
-					<ScrollArea >
+					<ScrollArea>
 						<Prism colorScheme="light" language="javascript" radius="md" noCopy={true}>
 							{minify}
 						</Prism>

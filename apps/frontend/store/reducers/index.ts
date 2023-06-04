@@ -1,3 +1,4 @@
 import encoderReducer from './encode'
+import userReducer from './user'
 
-export { encoderReducer }
+export { encoderReducer, userReducer }
