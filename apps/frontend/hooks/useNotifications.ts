@@ -2,7 +2,7 @@ import { showNotification } from '@mantine/notifications'
 import { useMemo } from 'react'
 
 interface NotificationProps {
-	status: StatusType
+	status?: StatusType
 	title?: string
 	message: string
 	type: NotiType
