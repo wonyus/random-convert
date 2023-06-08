@@ -1,7 +1,7 @@
-import { createStyles } from '@mantine/core'
+import { createStyles, getStylesRef } from '@mantine/core'
 
 export const useStyles = createStyles((theme, _params, getRef) => {
-	const icon = getRef('icon')
+	const icon = getStylesRef('icon')
 
 	return {
 		navbar: {
@@ -120,14 +120,14 @@ export const useStyles = createStyles((theme, _params, getRef) => {
 			'&:active': theme.activeStyles,
 		},
 
-		headerdropdownFooter: {
-			backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
-			margin: -theme.spacing.md,
-			marginTop: theme.spacing.sm,
-			padding: `${theme.spacing.md}px ${theme.spacing.md * 2}px`,
-			paddingBottom: theme.spacing.xl,
-			borderTop: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1]}`,
-		},
+		// headerdropdownFooter: {
+		// 	backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
+		// 	margin: -theme.spacing.md,
+		// 	marginTop: theme.spacing.sm,
+		// 	padding: `${theme.spacing.md}px ${theme?.spacing?.md * 2}px`,
+		// 	paddingBottom: theme.spacing.xl,
+		// 	borderTop: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1]}`,
+		// },
 
 		headerhiddenMobile: {
 			[theme.fn.smallerThan('sm')]: {

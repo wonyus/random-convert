@@ -12,16 +12,16 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { PostsModule } from './modules/posts/posts.module';
 import { MinifierModule } from './modules/minifier/minifier.module';
-import { ReverseProxyAuthMiddleware } from './middleware/proxy-auth.middleware';
 import { AccessTokenGuard } from 'src/core/guards/accessToken.guard';
 import { JwtModule } from '@nestjs/jwt';
+import { ConvertsModule } from './modules/converts/converts.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     JwtModule.register({
       secret: process.env.JWT_ACCESS_SECRET,
-      verifyOptions: { algorithms: ['HS256'], },
+      verifyOptions: { algorithms: ['HS256'] },
       signOptions: { expiresIn: process.env.TOKEN_EXPIRATION },
     }),
     DatabaseModule,
@@ -29,6 +29,7 @@ import { JwtModule } from '@nestjs/jwt';
     AuthModule,
     PostsModule,
     MinifierModule,
+    ConvertsModule,
   ],
   controllers: [AppController],
   providers: [AccessTokenGuard, AppService],

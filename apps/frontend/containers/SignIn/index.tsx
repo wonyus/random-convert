@@ -22,7 +22,6 @@ const SignInContainer: FC = () => {
 	const [password, setPassword] = useAtom(passwordAtom)
 
 	const handleSignIn = async () => {
-
 		const { error, status, ok, url }: any = await signIn('credentials', {
 			redirect: false,
 			username,
@@ -51,8 +50,8 @@ const SignInContainer: FC = () => {
 			<Paper withBorder shadow="md" p={30} mt={30} radius="md">
 				<TextInput
 					value={username}
-					label="Email"
-					placeholder="email@domain.com"
+					label="Username"
+					placeholder="username"
 					required
 					onChange={(e) => setUsername(e.target.value)}
 				/>
@@ -64,8 +63,8 @@ const SignInContainer: FC = () => {
 					mt="md"
 					onChange={(e) => setPassword(e.target.value)}
 				/>
-				<Group position="apart" mt="lg">
-					<Checkbox label="Remember me" sx={{ lineHeight: 1 }} />
+				<Group position="apart" mt="lg" sx={{ display: 'flex', justifyContent: 'right' }}>
+					{/* <Checkbox label="Remember me" sx={{ lineHeight: 1 }} /> */}
 					<Link href={'/auth/forgotpassword'}>
 						<Text color="dimmed" size="sm" align="center" mt={5}>
 							Forgot password?

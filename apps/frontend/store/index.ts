@@ -1,4 +1,4 @@
-import { atomWithStore } from 'jotai/redux'
+import { atomWithStore } from 'jotai-redux'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { encoderReducer, userReducer } from './reducers'
 import logger from 'redux-logger'
