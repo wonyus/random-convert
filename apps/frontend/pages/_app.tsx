@@ -1,7 +1,7 @@
 import App, { AppProps, AppContext } from 'next/app'
 import Head from 'next/head'
 import { MantineProvider } from '@mantine/core'
-import { NotificationsProvider } from '@mantine/notifications'
+import { Notifications } from '@mantine/notifications';
 import { Provider } from 'jotai'
 import NavigatorCustom from '../components/NavigatorCustom'
 import { SessionProvider } from 'next-auth/react'
@@ -11,7 +11,7 @@ export default function MyApp(props: AppProps) {
 		Component,
 		pageProps: { session, ...pageProps },
 	} = props
-	
+
 	return (
 		<>
 			<Head>
@@ -37,12 +37,11 @@ export default function MyApp(props: AppProps) {
 						},
 					}}
 				>
-					<NotificationsProvider>
-						<SessionProvider session={session}>
-							<NavigatorCustom />
-							<Component {...pageProps} />
-						</SessionProvider>
-					</NotificationsProvider>
+					<Notifications />
+					<SessionProvider session={session}>
+						<NavigatorCustom />
+						<Component {...pageProps} />
+					</SessionProvider>
 				</MantineProvider>
 			</Provider>
 		</>
