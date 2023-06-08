@@ -1,8 +1,8 @@
-import { showNotification } from '@mantine/notifications'
+import { notifications } from '@mantine/notifications'
 import { useMemo } from 'react'
 
 interface NotificationProps {
-	status: StatusType
+	status?: StatusType
 	title?: string
 	message: string
 	type: NotiType
@@ -28,7 +28,7 @@ export const useNotifications = () => {
 
 	const callNotification = ({ title, message, type }: NotificationProps) => {
 		const props = notiTypes[type]
-		showNotification({
+		notifications.show({
 			title: title ?? props.title,
 			message: message,
 			color: props.color,

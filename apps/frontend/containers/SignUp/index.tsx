@@ -3,48 +3,74 @@ import { useRouter } from 'next/router'
 import { TextInput, PasswordInput, Paper, Title, Text, Container, Group, Button, Select, Box } from '@mantine/core'
 import useNotifications from '../../hooks/useNotifications'
 import Link from 'next/link'
-import { IconGenderFemale, IconGenderMale } from '@tabler/icons'
-import { atom, useAtom } from 'jotai'
+
 import { register } from '../../service/request'
 import { signIn } from 'next-auth/react'
-
-const data = [
-	{ label: 'Male', value: 'male', icon: <IconGenderMale /> },
-	{ label: 'Female', value: 'female', icon: <IconGenderFemale /> },
-]
+import { object } from 'yup'
+import { string } from 'yup'
+import { Form, Formik } from 'formik'
 interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
 	icon: JSX.Element
 	label: string
 	value: string
 }
-const nameAtom = atom('')
-const usernameAtom = atom('')
-const passwordAtom = atom('')
-const emailAtom = atom('')
-const genderAtom = atom('')
+
+type FormValues = {
+	name: string
+	email: string
+	username: string
+	password: string
+	confirmPassword: string
+}
+
+type Errors = Partial<Record<keyof FormValues, string>>
+
+const signUpSchema = object().shape({
+	username: string().min(5, 'Username must be at least 5 characters'),
+	email: string().email().required(),
+	name: string().required('Name is required'),
+	password: string()
+		.min(7, 'Password must be at least 7 characters')
+		.max(35, 'Password must not exceed 35 characters'),
+	confirmPassword: string()
+		.min(7, 'Confirm password must be at least 7 characters')
+		.max(35, 'Confirm password must not exceed 35 characters')
+		.when('password', ([password], schema, { value }) => {
+			return password?.length > 0
+				? schema.required('ConfirmPassword is required').test({
+						name: 'max',
+						exclusive: true,
+						params: { value },
+						message: 'password is not match',
+						test: (value) => value == password,
+				  })
+				: schema.required('ConfirmPassword is required')
+		}),
+})
 
 const SignUpContainer: FC = () => {
-	const router = useRouter()
 	const { callNotification } = useNotifications()
 
-	const [name, setName] = useAtom(nameAtom)
-	const [username, setUsername] = useAtom(usernameAtom)
-	const [password, setPassword] = useAtom(passwordAtom)
-	const [email, setEmail] = useAtom(emailAtom)
-	const [gender, setGender] = useAtom<string | null>(genderAtom)
+	const handleSignUp = async (dataForm: FormValues) => {
+		try {
+			const response = await register(
+				{},
+				{
+					name: dataForm.name,
+					username: dataForm.username,
+					password: dataForm.password,
+					email: dataForm.email,
+				},
+			)
 
-	const handleSignUp = async () => {
-	try {
-		const response = await register({}, { name, username, password, email })
-
-		if (response) {
-			signIn('credentials', { username, password })
-			callNotification({ message: 'Login successfully', type: 'success', status: 200 })
+			if (response) {
+				signIn('credentials', { username: dataForm.username, password: dataForm.password })
+				callNotification({ message: 'Login successfully', type: 'success', status: 200 })
+			}
+		} catch (err: any) {
+			callNotification({ message: err.message, type: 'error', status: 200 })
 		}
-	} catch (err: any) {
-		callNotification({ message: err.message, type: 'error', status: 200 })
 	}
-}
 
 	const SelectItem = forwardRef<HTMLDivElement, ItemProps>(({ icon, label, ...others }: ItemProps, ref) => (
 		<div ref={ref} {...others}>
@@ -63,58 +89,93 @@ const SignUpContainer: FC = () => {
 			>
 				Sign up
 			</Title>
+			<Formik
+				initialValues={{
+					name: '',
+					email: '',
+					username: '',
+					password: '',
+					confirmPassword: '',
+				}}
+				validationSchema={signUpSchema}
+				onSubmit={async (values, actions) => {
+					console.log(actions)
 
-			<Paper withBorder shadow="md" p={30} mt={30} radius="md">
-				<TextInput
-					label="Username"
-					placeholder="Username"
-					onChange={(e) => setUsername(e.target.value)}
-					required
-					mt="md"
-				/>
-				<TextInput
-					label="Email"
-					placeholder="you@randomnconvert.dev"
-					onChange={(e) => setEmail(e.target.value)}
-					required
-					mt="md"
-				/>
-				<TextInput
-					label="Name"
-					placeholder="name"
-					onChange={(e) => setName(e.target.value)}
-					required
-					mt="md"
-				/>
-				<PasswordInput
-					label="Password"
-					placeholder="Your password"
-					onChange={(e) => setPassword(e.target.value)}
-					required
-					mt="md"
-				/>
-				{/* <Select
-					label="Gender"
-					onChange={setGender}
-					placeholder="Pick one"
-					itemComponent={SelectItem}
-					data={data}
-					searchable
-					maxDropdownHeight={400}
-					nothingFound="Not Found"
-					filter={(value, item: any) => item.label.toLowerCase().includes(value.toLowerCase().trim())}
-				/> */}
-				<Group position="apart" mt="lg" sx={{ display: 'flex', justifyContent: 'end' }}>
-					<Link href={'/auth/signin'}>
-						<Text color="dimmed" size="sm" align="center" mt={5}>
-							Sign in?
-						</Text>{' '}
-					</Link>
-				</Group>
-				<Button fullWidth mt="xl" onClick={() => handleSignUp()}>
-					Sign up
-				</Button>
-			</Paper>
+					await handleSignUp(values)
+				}}
+			>
+				{({ handleSubmit, handleChange, handleBlur, values, errors }) => (
+					<Form onSubmit={handleSubmit}>
+						<Paper withBorder shadow="md" p={30} mt={30} radius="md">
+							<TextInput
+								label="Username"
+								name="username"
+								placeholder="Username"
+								error={errors.username}
+								value={values.username}
+								onChange={handleChange}
+								onBlur={handleBlur}
+								required
+								mt="md"
+							/>
+							<TextInput
+								label="Email"
+								name="email"
+								placeholder="you@randomnconvert.dev"
+								value={values.email}
+								error={errors.email}
+								onChange={handleChange}
+								onBlur={handleBlur}
+								required
+								mt="md"
+							/>
+							<TextInput
+								label="Name"
+								name="name"
+								placeholder="name"
+								value={values.name}
+								error={errors.name}
+								onChange={handleChange}
+								onBlur={handleBlur}
+								required
+								mt="md"
+							/>
+							<PasswordInput
+								label="Password"
+								name="password"
+								placeholder="password"
+								value={values.password}
+								error={errors.password}
+								onChange={handleChange}
+								onBlur={handleBlur}
+								required
+								mt="md"
+							/>
+							<PasswordInput
+								label="ConfirmPassword"
+								name="confirmPassword"
+								placeholder="confirm password"
+								value={values.confirmPassword}
+								error={errors.confirmPassword}
+								onChange={handleChange}
+								onBlur={handleBlur}
+								required
+								mt="md"
+							/>
+							<Group position="apart" mt="lg" sx={{ display: 'flex', justifyContent: 'end' }}>
+								<Link href={'/auth/signin'}>
+									<Text color="dimmed" size="sm" align="center" mt={5}>
+										Sign in?
+									</Text>{' '}
+								</Link>
+							</Group>
+							<Button fullWidth mt="xl" type="submit">
+								Sign up
+							</Button>
+						</Paper>
+					</Form>
+				)}
+			</Formik>
 		</Container>
 	)
 }

@@ -50,12 +50,12 @@ const Header = () => {
 				</div>
 
 				<Drawer
-					transition="rotate-right"
-					transitionDuration={250}
-					transitionTimingFunction="ease"
-					overlayOpacity={0.55}
+					// transition="rotate-right"
+					// transitionDuration={250}
+					// transitionTimingFunction="ease"
+					// overlayOpacity={0.55}
 					position="right"
-					closeButtonLabel="Close drawer"
+					// closeButtonLabel="Close drawer"
 					title="Menu"
 					padding="xl"
 					opened={opened}
