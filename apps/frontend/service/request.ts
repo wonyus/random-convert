@@ -1,3 +1,4 @@
+import axios from 'axios'
 import axiosInstance from './axiosInstance'
 import defaultInstance from './axiosglobal'
 interface RequestAxios {
@@ -48,6 +49,12 @@ export const getAllPost = async (header: any, formdata: any) => {
 
 export const getUser = async (header: any, formdata: any) => {
 	const response = await axiosInstance.get('/auth-service/user', formdata)
+	const { data }: any = response
+	return data
+}
+
+export const convertMetric =async (header: any, formdata: any) => {
+	const response = await axios.post(`${process.env.NEXT_PUBLIC_APP_ENDPOINT}converts/metric`, formdata)
 	const { data }: any = response
 	return data
 }

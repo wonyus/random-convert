@@ -140,6 +140,9 @@ export function HeaderCustom({ burgerOpened, toggleBurger, closeBurger }: Burger
 								</div> */}
 							</HoverCard.Dropdown>
 						</HoverCard>
+						<Link href={'/converts'} className={classes.headerlink}>
+							Converts
+						</Link>
 						<Link href={'/portfolio'} className={classes.headerlink}>
 							Portfolio
 						</Link>
