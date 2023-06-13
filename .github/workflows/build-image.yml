@@ -38,4 +38,4 @@ jobs:
           context: .
           file: ./apps/backend/Dockerfile
           push: true
-          tags: wonyus/api:latest, wonyus/api:${{ steps.commit.outputs.short }}
+          tags: wonyus/rncapi:latest, wonyus/rncapi:${{ steps.commit.outputs.short }}
