@@ -50,8 +50,8 @@ const SignInContainer: FC = () => {
 			<Paper withBorder shadow="md" p={30} mt={30} radius="md">
 				<TextInput
 					value={username}
-					label="Username"
-					placeholder="username"
+					label="Email/Username"
+					placeholder="email/username"
 					required
 					onChange={(e) => setUsername(e.target.value)}
 				/>
