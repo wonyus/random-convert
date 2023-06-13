@@ -2,9 +2,7 @@ import { Sequelize } from 'sequelize-typescript';
 
 import { SEQUELIZE, DEVELOPMENT, TEST, PRODUCTION } from '../constants';
 import { databaseConfig } from './database.config';
-import { User } from 'src/modules/users/user.entity';
-import { Post } from 'src/modules/posts/post.entity';
-import { Minifier } from 'src/modules/minifier/entities/minifier.entity';
+import { User } from '../entity/user.entity';
 import { History } from 'src/modules/history/entities/history.entity';
 
 export const databaseProviders = [
@@ -26,8 +24,8 @@ export const databaseProviders = [
           config = databaseConfig.development;
       }
       const sequelize = new Sequelize(config);
-      sequelize.addModels([User, Post, Minifier, History]);
-      await sequelize.sync();
+      sequelize.addModels([User, History]);
+
       return sequelize;
     },
   },
