@@ -48,7 +48,7 @@ const ForgotPasswordContainer: FC = () => {
 			</Text>
 
 			<Paper withBorder shadow="md" p={30} radius="md" mt="xl">
-				<TextInput label="Your email" placeholder="me@mantine.dev" required />
+				<TextInput label="Your email" placeholder="email@randomnconvert.online" required />
 				<Group position="apart" mt="lg" className={classes.controls}>
 					<Link href={'/auth/signin'}>
 						<Text color="dimmed" size="sm" className={classes.control}>
