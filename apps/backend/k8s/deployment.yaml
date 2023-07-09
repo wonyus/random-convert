@@ -15,5 +15,44 @@ spec:
       container:
         - name: nestjs-k8s
           image: wonyus/rncapi:latest
+          env:
+          - name: "PORT"
+            value: '8000'
+          - name: "DATABASE_NAME_DEVELOPMENT"
+            value: 'railway'
+          - name: "DATABASE_NAME_SIT"
+            value: 'railway'
+          - name: "DATABASE_NAME_UAT"
+            value: 'railway'
+          - name: "DATABASE_NAME_PRODUCTION"
+            value: 'railway'
+          - name: "TOKEN_EXPIRATION"
+            value: '15m'
+          - name: "JWTKEY"
+            value: 'ouD4Ao4bTMCIO5DKxbQiSFCLdRdYetfJq+zTuoSMINn/LQYL4ZMs7q74iX+AA+pNIMAFQ8T3Ru5aIG7GtwaqQUgrqSy7XO0Ed9QxULHw0y5RyAyJzQI5J+HW5KMNPMBCa/Si0yyoBbDUtrqWXnxEKuZpejBCSvZFO9ckbKDPenIGKR4HuXsU4jHoMQ7b5nC6cv+nPcRsGr48yn5ulBXFGq7ndsrPGdRNq1iNNtowO5jvVIIIfhx4SIut/w+KiERwoJfbrj8M9wrJHBC+w3aC7y02HtTZI5xIr4Sa8QR1+reLHJU1htFbO7W4ysTocGLg73NXJxTXzDsnYXmSlG+EKQ=='
+          - name: "JWT_ACCESS_SECRET"
+            value: 'ouD4Ao4bTMCIO5DKxbQiSFCLdRdYetfJq+zTuoSMINn/LQYL4ZMs7q74iX+AA+pNIMAFQ8T3Ru5aIG7GtwaqQUgrqSy7XO0Ed9QxULHw0y5RyAyJzQI5J+HW5KMNPMBCa/Si0yyoBbDUtrqWXnxEKuZpejBCSvZFO9ckbKDPenIGKR4HuXsU4jHoMQ7b5nC6cv+nPcRsGr48yn5ulBXFGq7ndsrPGdRNq1iNNtowO5jvVIIIfhx4SIut/w+KiERwoJfbrj8M9wrJHBC+w3aC7y02HtTZI5xIr4Sa8QR1+reLHJU1htFbO7W4ysTocGLg73NXJxTXzDsnYXmSlG+EKQ=='
+          - name: "JWT_REFRESH_SECRET"
+            value: '/ZLyA7o5P/dlJfDHsHwgK/MldJ8k2zMYDauvu1+gVo0Xzfkuktii4W6h11GMSpWsqWn7tZV1sy/enEJorGm9ca7QTz8pCacgqRwVblASjtihPPIeDNL4NIx/SpdEL2y3SwoLQIV+QXT7tpGv+bTWPhYdAhT8zQjJx6BIeHc5dJn2P02j6G4tlTlN72gaDUzrMvthAPR0DkNq0iLrm7HdEUurNtsVbVwcAU67fLqXGNNcFrrBPCBAdVmYZfSB6BT5pyYViV89CSUDvr0l9FjFinsGewDLoP1vjdd61ilGzarjf3kYzMWWj3VcwGJBpzCTgy9YIHMedss21/P+XvAs8g=='
+          - name: "AUTH_SERVICE_HOST"
+            value: 'localhost'
+          - name: "AUTH_SERVICE_PORT"
+            value: '8080'
+          - name: "DATABASE_HOST"
+            value: 'containers-us-west-153.railway.app'
+          - name: "DATABASE_PORT"
+            value: '7362'
+          - name: "DATABASE_USER"
+            value: 'postgres'
+          - name: "DATABASE_PASS"
+            value: 'M12kKa8hkxQFh59d8Wxc'
+          - name: "DATABASE_DIALECT"
+            value: 'postgres'
+          - name: "AUTH_SERVICE"
+            value: 'https://dev-authservice.randomnconvert.online'
           ports:
             - containerPort: 8000
+
+
+
+

@@ -12,8 +12,10 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConvertsModule } from './modules/converts/converts.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { HistoryModule } from './modules/history/history.module';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 @Module({
   imports: [
+    PrometheusModule.register(),
     ClientsModule.register([
       { name: 'HISTORY_SERVICE', transport: Transport.TCP },
     ]),
